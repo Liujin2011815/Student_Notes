@@ -1,4 +1,11 @@
-### 一、Git 创建仓库
+### 一、GIt 工作流程
+- 克隆 Git 资源作为工作目录。
+- 在克隆的资源上添加或修改文件。
+- 如果其他人修改了，你可以更新资源。
+- 在提交前查看修改。
+- 提交修改。
+- 在修改完成后，如果发现错误，可以撤回提交并再次修改并提交。
+### 二、Git 创建仓库
 
 **1.从当前目录打开 `Git Bash Here` ，输入初始化命令**
 ```
@@ -10,7 +17,25 @@ git init
 git init FileName
 ```
 **该命令执行完后会在当前目录下的 *FileName* 目录下生成一个 *.git* 目录，如果当前目录下没有 *FileName* 目录，则会生成一个空目录**  
-### 二、
+### 三、将目录下的文件纳入版本控制
+```
+$ git add .
+$ git add FileName
+$ git commit -m '初始化项目版本'
+```
+### 四、克隆仓库
+1.我们使用 `git clone` 从现有 Git 仓库中拷贝项目
+```
+$ git clone git@github.com:****/***.git
+```
+2.如果我们需要克隆到指定的目录，可以使用以下命令格式
+```
+git clone <repo> <directory>
+```
+3.如果要自己定义要新建的项目目录名称，可以在命令末尾指定新的名字
+```
+$ git clone git@github.com:****/***.git mygrit
+```
 
 
 
@@ -25,8 +50,31 @@ warning:Permanently added the RSA host key for IP address '192.30.255.113' to th
 ```
 **解决办法：**
 找到系统 *hosts* 文件，在文件里添加GitHub的IP地址：***192.30.225.113***
-**2.**
-
+**2.提交 Git 仓库时出现如下问题**
+```
+Your branch is up-to-date with 'origin/master'.
+```
+**解决办法：**  
+* 其根本原因是版本分支的问题，需要新建一个分支，检查是否已经建成
+    ```
+    $ git branch newbranch
+    & git branch
+    ```
+* 然后切换到分支，将改动提交到新分支
+    ```
+    $ git add . 
+    $ git commit -m "说明"
+    ```
+* 再切换到主分支，将新分支提交的改动合并到主分支
+    ```
+    $ git checkout master
+    $ git merge newbranch 
+    ```
+* 然后可以 push 代码了，最后还可以删除分支
+    ```
+    $ git push -u origin master
+    $ git branch -D newbranch
+    ```
 ### Error
 **1. Git push 到GitHub的时候遇到**
 ```
@@ -53,7 +101,26 @@ error: failed to push some refs to 'git@gitee.com:***/****.git'
     Already up-to-date.
     $ git push origin master
     ```
-
+**2.在 push 更改时遇到如下问题**
+```
+To git@gitee.com:***/****.git
+! [rejected] master -> master (fetch first)
+error: failed to push some refs to 'git@gitee.com:***/****.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+**解决办法：**
+* 强行让本地分支覆盖远程分支，不建议
+    ```
+    $ git push origin master -f 
+    ```
+* pull 把运程分支上的提交合并到本地分支之后再 push
+    ```
+    $ git pull origin master --allow-unrelated-histories
+    ```
 ### Fatal
 
 **1.在上传本地代码到GitHub仓库时，出现下面这个问题**
