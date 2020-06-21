@@ -37,7 +37,41 @@ git clone <repo> <directory>
 $ git clone git@github.com:****/***.git mygrit
 ```
 
+### 五、基本快照
 
+**1.`git add`**
+
+该命令将文件添加到缓存
+* 添加一个文件时
+  * `git add FileName`
+* 添加两个文件时
+  * ```
+    $ touch README
+    $ touch hello.php
+    $ ls
+    README        hello.php
+    $ git add README hello.php 
+    ```
+* 添加所有更改时
+  * `git add .`
+
+**2.`git status`**
+
+该命令查看上次提交之后是否有修改，使用命令`git status -s`时，可以获得简短的结果输出
+
+**3.`git diff`**
+
+该命令来查看执行`git status`获得的结果的详细信息
+* 尚未缓存的改动： git diff
+* 查看已经缓存的改动： git diff cached
+* 查看已缓存和未缓存的所有改动: git diff HEAD
+* 显示摘要而非整个 diff ： git diff --stat
+
+**4.`git commit`
+
+该命令将缓存区内容添加到仓库中，使用命令`git commit -m`命令可以在命令行中添加提交注释
+
+`git commit -a`命令可以跳过`git add`命令
 
 
 ***
